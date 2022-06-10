@@ -23,6 +23,6 @@ def betaMainRoute():
 
 
 if __name__ == '__main__':
-    #site_url = "callama.dev"
-    #app.config['SERVER_NAME'] = site_url
+    site_url = "callama.dev"
+    app.config['SERVER_NAME'] = site_url
     app.run()
