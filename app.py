@@ -15,6 +15,11 @@ def mainRoute():
     resp = make_response(render_template("helloworld.html"), 200)
     return resp
 
+@app.route("/new")
+def newRoute():
+    resp = make_response(render_template("mainpage.html"),200)
+    return resp
+
 @app.route("/", subdomain="beta")
 def betaMainRoute():
     resp = make_response(render_template("helloworld.html"), 200)
