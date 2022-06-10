@@ -1,14 +1,23 @@
 from flask import Flask, render_template, make_response, session, request, redirect
 import psycopg2
 
+
 import os
 import json
 
+from auth import getDBCredsandConnect
 
 
 # in the Procfile, we have app:app. this is looking for the file, app, with the webserver var, app. it must match.
 app = Flask(__name__,template_folder="misc/templates",subdomain_matching=True)
 app.config["DEBUG"] = True
+version = "beta"
+
+@app.route("/test")
+def testRoute():
+    x = getDBCredsandConnect(1)
+    return x
+
 
 @app.route("/")
 def mainRoute():
@@ -25,11 +34,15 @@ def betaMainRoute():
     resp = make_response(render_template("helloworld.html"), 200)
     return "hello, you  sly dawg"
 
-@app.route("/login")
+@app.route("/login", methods=["GET"])
 def loginRoute():
     resp = make_response(render_template("login.html"), 200)
     return resp
 
+@app.route("/login", methods=["POST"])
+def submitLoginRoute():
+    email = request.form['email']
+    password = request.form['password']
 
 
 if __name__ == '__main__':
