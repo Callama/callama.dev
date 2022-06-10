@@ -13,11 +13,6 @@ app = Flask(__name__,template_folder="misc/templates",subdomain_matching=True)
 app.config["DEBUG"] = True
 version = "beta"
 
-@app.route("/test")
-def testRoute():
-    x = getDBCredsandConnect(1)
-    return x
-
 
 @app.route("/")
 def mainRoute():
