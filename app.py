@@ -25,6 +25,11 @@ def betaMainRoute():
     resp = make_response(render_template("helloworld.html"), 200)
     return "hello, you  sly dawg"
 
+@app.route("/login")
+def loginRoute():
+    resp = make_response(render_template("login.html"), 200)
+    return resp
+
 
 
 if __name__ == '__main__':
