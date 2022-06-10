@@ -15,7 +15,9 @@ def mainRoute():
     resp = make_response(render_template("helloworld.html"), 200)
     return resp
 
-
+@app.route("/", subdomain="beta")
+def betaMainRoute():
+    return "you sneaky dog - now leave!"
 
 
 
