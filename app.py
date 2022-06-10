@@ -3,7 +3,7 @@ import psycopg2
 
 import os
 import json
-import requests
+
 
 
 # in the Procfile, we have app:app. this is looking for the file, app, with the webserver var, app. it must match.
