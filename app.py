@@ -18,7 +18,7 @@ def mainRoute():
 @app.route("/", subdomain="beta")
 def betaMainRoute():
     resp = make_response(render_template("helloworld.html"), 200)
-    return resp
+    return "hello, you  sly dawg"
 
 
 
