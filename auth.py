@@ -1,7 +1,8 @@
 import requests
 import os
-from boto.s3.connection import S3Connection
 
+from app import app
+from flask import Flask, render_template, make_response, session, request, redirect
 
 
 def verifyCredentials(session, email, password):
@@ -22,4 +23,16 @@ def getDBCredsandConnect(session,type="beta"):
     creds.pop("api_key")
    
 
+### ROUTES ###
 
+@app.route("/signup", methods=["GET"])
+def signupRoute():
+    resp = make_response(render_template("signup.html"), 200)
+    return resp
+
+@app.route("/signup",methods=["POST"])
+def signupPostRoute():
+    email = request.form['email']
+    password = request.form['password']
+    username = request.form['username']
+    return f"{email}, {password},{username}"

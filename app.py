@@ -5,8 +5,7 @@ import psycopg2
 import os
 import json
 
-from auth import getDBCredsandConnect
-
+import auth
 
 # in the Procfile, we have app:app. this is looking for the file, app, with the webserver var, app. it must match.
 app = Flask(__name__,template_folder="misc/templates",subdomain_matching=True)
@@ -29,10 +28,14 @@ def betaMainRoute():
     resp = make_response(render_template("mainpage.html"),200)
     return resp
 
+
+
 @app.route("/login", methods=["GET"])
 def loginRoute():
     resp = make_response(render_template("login.html"), 200)
     return resp
+
+
 
 @app.route("/login", methods=["POST"])
 def submitLoginRoute():
