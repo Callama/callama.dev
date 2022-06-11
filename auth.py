@@ -1,7 +1,7 @@
 import requests
 import os
 
-from app import app
+from __main__ import app
 from flask import Flask, render_template, make_response, session, request, redirect
 
 
