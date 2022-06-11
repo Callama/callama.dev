@@ -26,8 +26,8 @@ def newRoute():
 
 @app.route("/", subdomain="beta")
 def betaMainRoute():
-    resp = make_response(render_template("helloworld.html"), 200)
-    return "hello, you  sly dawg"
+    resp = make_response(render_template("mainpage.html"),200)
+    return resp
 
 @app.route("/login", methods=["GET"])
 def loginRoute():
@@ -41,6 +41,5 @@ def submitLoginRoute():
 
 
 if __name__ == '__main__':
-    site_url = "callama.dev"
-    app.config['SERVER_NAME'] = site_url
+    app.config['SERVER_NAME'] = "www.callama.dev"
     app.run()
