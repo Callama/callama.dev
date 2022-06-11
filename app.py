@@ -41,5 +41,5 @@ def submitLoginRoute():
 
 
 if __name__ == '__main__':
-    app.config['SERVER_NAME'] = "www.callama.dev"
+    app.config['SERVER_NAME'] = "callama.dev:443"
     app.run()
