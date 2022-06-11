@@ -1,19 +1,17 @@
 <html>
     <body>
-        <form align="center">
+        <form align="center" action="{{ url_for("signupPostRoute") }}" method="POST">
             <label for="email"><b>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> </label>
             <input type="username" id="email" name="email" placeholder="example@callama.dev" autocomplete="email">
-        </form>
-
-        <form align="center">
+       
             <label for="password"><b>Password</b></label>
             <input class="input" type="password" name="password" placeholder="example" autocomplete="current-password">
-        </form>
-        <form align="center" id="username">
+        
+        
             <label for="username"><b>Username</b></label>
             <input class="input" type="username" name="username" placeholder="tim" autocomplete="username">
-        </form>
-        <form align="center" id="submitSignup">
+       
+        
             <input type="button" id="submitSignupButton" value="Sign Up">
         </form>
     </body>
