@@ -24,7 +24,7 @@ def newRoute():
     resp = make_response(render_template("mainpage.html"),200)
     return resp
 
-@app.route("/", subdomain="beta.",methods=["GET"])
+@app.route("/", subdomain="beta",methods=["GET"])
 def betaMainRoute():
     resp = make_response(render_template("mainpage.html"),200)
     return resp
