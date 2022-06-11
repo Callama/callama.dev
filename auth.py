@@ -34,6 +34,7 @@ def signupRoute():
 def signupPostRoute():
    # email = request.form['email']
     password = request.form['password']
+    username = request.form['username']
     #username = request.form['username']
     #return f"{email}, {password},{username}"
     return f"{password}"
