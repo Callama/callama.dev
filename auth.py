@@ -27,12 +27,13 @@ def getDBCredsandConnect(session,type="beta"):
 
 @app.route("/signup", methods=["GET"])
 def signupRoute():
-    resp = make_response(render_template("signup.html"), 200)
+    resp = make_response(render_template("test_signup.html"), 200)
     return resp
 
 @app.route("/signup",methods=["POST"])
 def signupPostRoute():
-    email = request.form['email']
+   # email = request.form['email']
     password = request.form['password']
-    username = request.form['username']
-    return f"{email}, {password},{username}"
+    #username = request.form['username']
+    #return f"{email}, {password},{username}"
+    return f"{password}"
