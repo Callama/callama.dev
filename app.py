@@ -12,10 +12,12 @@ import json
 # in the Procfile, we have app:app. this is looking for the file, app, with the webserver var, app. it must match.
 app = Flask(__name__,template_folder="misc/templates",subdomain_matching=True)
 app.config["DEBUG"] = True
+import auth
+
 dbConn = auth.getDBCredsandConnect(type=version)
 
 
-import auth
+
 
 
     
