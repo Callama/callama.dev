@@ -59,10 +59,10 @@ def signUpUser(dbConn, username, email, password):
             username = cur.fetchone()
             dbConn.commit()
             if username == None or username == ():
-                cur.close()
+                cur.rollback()
                 return False
         except IntegrityError:
-            cur.close()
+            cur.rollback()
             return "unique"
     return username
 
@@ -91,11 +91,6 @@ def verifyCredentials(dbConn, session, username, password):
         return False
     
 
-
-
-
-
-   
 
 ### ROUTES ###
 
