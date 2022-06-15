@@ -104,7 +104,8 @@ def signupPostRoute():
     email = request.form['email']
     password = request.form['password']
     username = request.form['username']
-    if email == None or password == None or username == None:
+    
+    if email == '' or password == '' or username == '':
         redirect("/signup")
     user = signUpUser(dbConn, username, email, password)
     return f"{user}"
