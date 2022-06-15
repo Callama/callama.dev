@@ -14,9 +14,11 @@ from database_func import getDBCredsandConnect
 app = Flask(__name__,template_folder="misc/templates",subdomain_matching=True)
 app.config["DEBUG"] = True
 
-global dbConn
-dbConn =getDBCredsandConnect(type=version)
-
+def start():
+    version="prod"
+    global dbConn
+    dbConn = getDBCredsandConnect(type=version)
+start()
 import auth
 
 

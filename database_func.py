@@ -2,7 +2,7 @@ import psycopg2
 
 
 
-def getDBCredsandConnect(type):
+def getDBCredsandConnect(type="prod"):
     """ 
     Get DB creds and connect to the databse
 
@@ -25,7 +25,7 @@ def getDBCredsandConnect(type):
     global dbConn
     dbConn = psycopg2.connect(**creds)
     return dbConn
-    
+
 def fetchOne(dbConn, query):
     # if we have an cleaned argument in the query, in a seperate part, we want to remove the set of () holding the two parts together
     if len(query) > 1:
