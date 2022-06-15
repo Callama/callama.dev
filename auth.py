@@ -59,8 +59,10 @@ def signUpUser(dbConn, username, email, password):
             username = cur.fetchone()
             dbConn.commit()
             if username == None or username == ():
+                cur.close()
                 return False
         except IntegrityError:
+            cur.close()
             return "unique"
     return username
 
