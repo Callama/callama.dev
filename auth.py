@@ -87,7 +87,7 @@ def generateSessionKey(username):
 def verifyCredentials(dbConn, username, password):
     # our flow is:
     # get password -> hash password -> find matching username + hash 
-    hashedPassword, hasher = hashPassword(password)
+    hashedPassword, hasher = hashPassword(password,returnHasherObj=True)
     user = matchUserInDatabase(dbConn, username, hashedPassword)
     if user == None:
         return False
@@ -126,6 +126,7 @@ def loginRoute():
 def submitLoginRoute():
     username = request.form['username']
     password = request.form['password']
+    print(password)
     isVerified = verifyCredentials(dbConn, username, password)
     return f"Welcome, {username}"
 
