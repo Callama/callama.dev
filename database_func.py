@@ -1,5 +1,6 @@
 import psycopg2
 import os
+import requests
 
 
 def getDBCredsandConnect(type="prod"):
