@@ -43,17 +43,7 @@ def betaMainRoute():
 
 
 
-@app.route("/login", methods=["GET"])
-def loginRoute():
-    resp = make_response(render_template("login.html"), 200)
-    return resp
 
-
-
-@app.route("/login", methods=["POST"])
-def submitLoginRoute():
-    email = request.form['email']
-    password = request.form['password']
 
 
 if __name__ == '__main__':

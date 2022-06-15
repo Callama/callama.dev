@@ -17,11 +17,13 @@ from database_func import fetchOne, getDBCredsandConnect
 
 ### passwords ###
 
-def hashPassword(password):
+def hashPassword(password,returnHasherObj=False):
     # establish the hasher
     hasher = bcrypt.using(rounds=13)
     # hash the password
     hash = hasher.hash(password)
+    if returnHasherObj == True:
+        return hash, hasher
     return hash
 
 
@@ -82,15 +84,18 @@ def generateSessionKey(username):
     return sessionKey
 
 
-def verifyCredentials(dbConn, session, username, password):
+def verifyCredentials(dbConn, username, password):
     # our flow is:
     # get password -> hash password -> find matching username + hash 
-    hashedPassword = hashPassword(password)
+    hashedPassword, hasher = hashPassword(password)
     user = matchUserInDatabase(dbConn, username, hashedPassword)
     if user == None:
         return False
-    
+    isCorrectPassword = hasher.verify(password, hashedPassword)
+    return isCorrectPassword
 
+    
+    
 
 ### ROUTES ###
 
@@ -108,5 +113,19 @@ def signupPostRoute():
     if email == "" or password == "" or username == "":
          return redirect(f"/signup",code=302)
     user = signUpUser(dbConn, username, email, password)
-    return f"{user}"
+    return "Account Created Succesfully!"
+
+
+@app.route("/login", methods=["GET"])
+def loginRoute():
+    resp = make_response(render_template("login.html"), 200)
+    return resp
+
+
+@app.route("/login", methods=["POST"])
+def submitLoginRoute():
+    username = request.form['username']
+    password = request.form['password']
+    isVerified = verifyCredentials(dbConn, username, password)
+    return f"Welcome, {username}"
 

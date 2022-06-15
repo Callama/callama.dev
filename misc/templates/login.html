@@ -1,15 +1,12 @@
 <html>
     <body>
-        <form align="center">
+        <form align="center" action="{{ url_for("submitLoginRoute")}}" method="post">
             <label for="email"><b>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> </label>
-            <input type="text" id="email" placeholder="admin@callama.dev">
-        </form>
-
-        <form align="center">
+            <input type="text" name="username" id="email" placeholder="username">
+        
             <label for="password"><b>Password</b></label>
-            <input type="text" id="password" placeholder="admin">
-        </form>
-        <form align="center" id="submitLogin">
+            <input type="text" name="password" id="password" placeholder="password">
+
             <input type="button" id="submitLoginButton" value="Login">
         </form>
     </body>
