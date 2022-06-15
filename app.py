@@ -1,3 +1,5 @@
+# Doc String Formatting: https://betterprogramming.pub/how-to-write-proper-docstrings-for-a-python-function-7c40b8d2e153#
+
 from flask import Flask, render_template, make_response, session, request, redirect
 import psycopg2
 
@@ -10,10 +12,13 @@ import json
 # in the Procfile, we have app:app. this is looking for the file, app, with the webserver var, app. it must match.
 app = Flask(__name__,template_folder="misc/templates",subdomain_matching=True)
 app.config["DEBUG"] = True
+dbConn = auth.getDBCredsandConnect(type=version)
+
 
 import auth
 
-version = "beta"
+
+    
 
 
 @app.route("/")

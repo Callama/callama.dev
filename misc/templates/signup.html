@@ -1,16 +1,24 @@
  <html>
     <body>
-        <form align="center" action="{{ url_for("signupPostRoute")}}" method="post">
-            <label for="email"><b>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> </label>
-            <input type="username" id="email" name="email" placeholder="example@callama.dev" autocomplete="email">
+        <form action="{{ url_for("signupPostRoute")}}" method="post">
+            <div style="text-align:center;">
+                <label for="email"><b>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> </label>
+                <input type="username" id="email" name="email" placeholder="example@callama.dev" autocomplete="email">
+            </div>
             <br>
-            <label for="password"><b>Password&nbsp;</b></label>
-            <input class="input" type="password" name="password" placeholder="example" autocomplete="current-password">
+            <div style="text-align:center;">
+                <label for="password"><b>Password&nbsp;</b></label>
+                <input class="input" type="password" name="password" placeholder="example" autocomplete="current-password">
+            </div>
             <br>
-            <label for="username"><b>Username</b></label>
-            <input class="input" type="username" name="username" placeholder="tim" autocomplete="username">
+            <div style="text-align:center;">
+                <label for="username"><b>Username</b></label>
+                <input class="input" type="username" name="username" placeholder="tim" autocomplete="username">
+            </div>
             <br>
-            <button type="submit" name="submitSignupButton">&nbsp;&nbsp;&nbsp;Sign Up</button>
+            <div style="text-align:center;">
+                <button type="submit" name="submitSignupButton">Sign Up</button>
+            </div>
         </form>
     </body>
 </html>
