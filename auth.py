@@ -5,7 +5,8 @@ from app import app, dbConn
 from flask import Flask, render_template, make_response, session, request, redirect
 
 import psycopg2
-from psycopg2 import IntegrityError
+from psycopg2 import IntegrityError, sql
+from ext import quote_ident
 import passlib
 from passlib.hash import bcrypt 
 
@@ -28,7 +29,10 @@ def hashPassword(password,returnHasherObj=False):
 
 
 def matchUserInDatabase(dbConn, username, hashedPassword):
-    record = fetchOne(dbConn, (f"SELECT * FROM users WHERE username = %s and password_hash = {hashedPassword}", (username,)))
+    cursor = dbConn.cursor()
+    cursor.execute(f"SELECT * FROM users WHERE username = %s and password_hash = {hashedPassword}" % ext.quote_ident(username))
+    record = cursor.fetchone()
+    cursor.close()
     if record != None or record != ():
         return record
     elif record == None or record == ():
