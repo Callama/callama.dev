@@ -30,7 +30,7 @@ def hashPassword(password,returnHasherObj=False):
 
 def matchUserInDatabase(dbConn, username, hashedPassword):
     cursor = dbConn.cursor()
-    cursor.execute(f"SELECT * FROM users WHERE username = %s and password_hash = {hashedPassword}" % quote_ident(username))
+    cursor.execute(f"SELECT * FROM users WHERE username = %s and password_hash = {hashedPassword};" ,(username,))
     record = cursor.fetchone()
     cursor.close()
     if record != None or record != ():
