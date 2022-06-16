@@ -6,7 +6,7 @@ from flask import Flask, render_template, make_response, session, request, redir
 
 import psycopg2
 from psycopg2 import IntegrityError, sql
-from ext import quote_ident
+from psycopg2.extensions import quote_ident
 import passlib
 from passlib.hash import bcrypt 
 
@@ -30,7 +30,7 @@ def hashPassword(password,returnHasherObj=False):
 
 def matchUserInDatabase(dbConn, username, hashedPassword):
     cursor = dbConn.cursor()
-    cursor.execute(f"SELECT * FROM users WHERE username = %s and password_hash = {hashedPassword}" % ext.quote_ident(username))
+    cursor.execute(f"SELECT * FROM users WHERE username = %s and password_hash = {hashedPassword}" % quote_ident(username))
     record = cursor.fetchone()
     cursor.close()
     if record != None or record != ():
