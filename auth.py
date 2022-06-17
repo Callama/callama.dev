@@ -10,7 +10,7 @@ from psycopg2.extensions import quote_ident
 import passlib
 from passlib.hash import bcrypt 
 
-from database_func import fetchOne, getDBCredsandConnect
+from database_func import getDBCredsandConnect
 
 
 
