@@ -27,15 +27,27 @@ def getDBCredsandConnect(type="prod"):
     dbConn = psycopg2.connect(**creds)
     return dbConn
 
-def fetchOne(dbConn, query):
-    # if we have an cleaned argument in the query, in a seperate part, we want to remove the set of () holding the two parts together
-    if len(query) > 1:
-        query = query[0]
-        
-    cursor = dbConn.cursor()
-    cursor.execute(query)
-    record = cursor.fetchone()
-    cursor.close()
 
-    return record
+def createUserCache(dbConn):
+    """ 
+    Creates a user cache with the key:
+    (username, hashed password): email, user, hashed pass
+
+    :param dbConn: pysopg2 db conn obj, active db connection
+
+    :return: userCache, dict, record of all users
+    """
+    q = "SELECT * FROM users"
+    userCache = {}
+
+    with dbConn.cursor() as cur:
+        cur.execute(q)
+        records = cur.fetchall()
+        for user in records:
+            # make the key of each record the user's name and hashed password for quick lookup
+            key = (user[2], user[1])
+            userCache[key] = user
+    return userCache
+
+
 

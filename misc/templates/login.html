@@ -1,13 +1,19 @@
 <html>
     <body>
-        <form align="center" action="{{ url_for("submitLoginRoute")}}" method="post">
-            <label for="email"><b>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> </label>
-            <input type="text" name="username" id="email" placeholder="username">
-        
-            <label for="password"><b>Password</b></label>
-            <input type="text" name="password" id="password" placeholder="password">
-
-            <button type="submit" name="submitLoginButton">Login</button>
+        <formaction="{{ url_for("submitLoginRoute")}}" method="post">
+            <div style="text-align:center;">
+                <label for="email"><b>Username</b> </label>
+                <input type="text" name="username" id="email" placeholder="username">
+            </div>
+            <br>
+            <div style="text-align:center;">
+                <label for="password"><b>Password</b></label>
+                <input type="text" name="password" id="password" placeholder="password">
+            </div>
+            <br>
+            <div style="text-align:center;"">
+                <button type="submit" name="submitLoginButton">Login</button>
+            </div>
         </form>
     </body>
 </html>

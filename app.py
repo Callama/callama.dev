@@ -7,7 +7,7 @@ import psycopg2
 import os
 import json
 
-from database_func import getDBCredsandConnect
+from database_func import getDBCredsandConnect, createUserCache
 
 
 # in the Procfile, we have app:app. this is looking for the file, app, with the webserver var, app. it must match.
@@ -15,9 +15,12 @@ app = Flask(__name__,template_folder="misc/templates",subdomain_matching=True)
 app.config["DEBUG"] = True
 
 def start():
-    version="prod"
+    version = "prod"
+
     global dbConn
     dbConn = getDBCredsandConnect(type=version)
+    # make caches for faster response times
+        
 start()
 import auth
 
