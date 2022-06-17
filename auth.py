@@ -185,5 +185,5 @@ def submitLoginRoute():
     password = request.form['password']
     print(password)
     isVerified = verifyCredentials(dbConn, username, password)
-    return f"Welcome, {username}"
+    return f"Welcome, {isVerified}"
 
