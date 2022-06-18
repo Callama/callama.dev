@@ -1,8 +1,9 @@
 import requests
 import os
 
-from app import app, dbConn
+
 from flask import Flask, render_template, make_response, session, request, redirect
+
 
 import psycopg2
 from psycopg2 import IntegrityError, sql
@@ -10,7 +11,7 @@ from psycopg2.extensions import quote_ident
 import passlib
 from passlib.hash import bcrypt 
 
-from database_func import getDBCredsandConnect
+from global_vars import dbConn
 
 
 
@@ -46,15 +47,18 @@ def verifyCredentials(dbConn, username, password):
     :param password: str, the non-hashed version of the user's password
 
     :return: False, bool, no user found with matching username AND password
+    :return: None, NoneType, no user found at all.
     :return: (username, sessionKey) tuple, succesfully matched user. has user's name and sessionKey
             #TODO add any other important info from the user's record
     """
     # our flow is:
-    # get password -> hash password -> find matching username + hash 
+    # get password -> find matching username -> get their hash -> match hash to password -> make session
     hashedPassword, hasher = hashPassword(password,returnHasherObj=True)
-    user = matchUserInDatabase(dbConn, username, hashedPassword)
+
+    user = matchUserInDatabase(dbConn, username)
     if user == None:
-        return False
+        return None
+
     isCorrectPassword = hasher.verify(password, hashedPassword)
 
     if isCorrectPassword == False:
@@ -63,7 +67,7 @@ def verifyCredentials(dbConn, username, password):
     if isCorrectPassword == True:
         sessionKey = generateSessionKey(username, hashedPassword)
 
-    userInfo = (isCorrectPassword[0],sessionKey)
+    userInfo = (username, sessionKey)
     return userInfo
 
 ### Sign-Ups ###
@@ -122,49 +126,44 @@ def generateSessionKey(username, hashedPassword):
 
 ### Misc Auth ###
 
-def matchUserInDatabase(dbConn, username, hashedPassword):
+def matchUserInDatabase(dbConn, username):
     """ 
-    Find a user in the database with their username and *hashed* password
+    Find a user in the database with their username 
     To be used only for auth services
 
     :param dbConn: psycopg2 db object, database connection
     :param username: str, user's username 
-    :param hashedPassword: str, user's password that has been hashed with bcrypt 13 rounds
+   
     
     return None, NoneType, no user/record found
 
     :return: tuple, found record
     """
-    print(username, hashedPassword)
+    print(username, "USERANEM matchUSERDB")
     cursor = dbConn.cursor()
-    cursor.execute(f"SELECT * FROM users WHERE username = '{username}' and password_hash = '{hashedPassword}';")
+    cursor.execute(f"SELECT * FROM users WHERE username = %s", (username,))
     record = cursor.fetchone()
     cursor.close()
     print(record, "RECORD FROM matchUSERInDB")
-    # if no user is found, it returns () or occasionally NoneType
+    
     if record != None or record != ():
         return record
-    elif record == None or record == ():
+    # if no user is found, it returns () or occasionally NoneType
+    if record == None or record == ():
         return None
-
-
-
-
-    
-    
 
 ### ROUTES ###
 
 ## Sign Ups ##
 
-@app.route("/signup", methods=["GET"])
 def signupRoute():
-    resp = make_response(render_template("signup.html"), 200)
-    return resp
-
-@app.route("/signup",methods=["POST"])
-def signupPostRoute():
-    email = request.form['email']
+    # regular request
+    if request.method == "GET":
+        resp = make_response(render_template("signup.html"), 200)
+        return resp
+    # when submitting a request
+    if request.method == "POST":
+         email = request.form['email']
     password = request.form['password']
     username = request.form['username']
     
@@ -175,17 +174,17 @@ def signupPostRoute():
 
 ## LogIns ##
 
-@app.route("/login", methods=["GET"])
+
 def loginRoute():
-    resp = make_response(render_template("login.html"), 200)
-    return resp
-
-
-@app.route("/login", methods=["POST"])
-def submitLoginRoute():
-    username = request.form['username']
-    password = request.form['password']
+    # regular route
+    if request.method == "GET":
+        resp = make_response(render_template("login.html"), 200)
+        return resp
+    # when the submit button is pressed
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['password']
     
-    isVerified = verifyCredentials(dbConn, username, password)
-    return f"Welcome, {isVerified}"
+        isVerified = verifyCredentials(dbConn, username, password)
+        return f"Welcome, {isVerified}"
 
