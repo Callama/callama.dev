@@ -135,8 +135,9 @@ def matchUserInDatabase(dbConn, username, hashedPassword):
 
     :return: tuple, found record
     """
+    
     cursor = dbConn.cursor()
-    cursor.execute(f"SELECT * FROM users WHERE username = %s and password_hash = '{hashedPassword}';", (username,))
+    cursor.execute(f"SELECT * FROM users WHERE username = '{username}' and password_hash = '{hashedPassword}';")
     record = cursor.fetchone()
     cursor.close()
     print(record, "RECORD FROM matchUSERInDB")
