@@ -139,6 +139,7 @@ def matchUserInDatabase(dbConn, username, hashedPassword):
     cursor.execute(f"SELECT * FROM users WHERE username = %s and password_hash = '{hashedPassword}';" ,(username,))
     record = cursor.fetchone()
     cursor.close()
+    print(record, "RECORD FROM matchUSERInDB")
     # if no user is found, it returns () or occasionally NoneType
     if record != None or record != ():
         return record
@@ -183,7 +184,7 @@ def loginRoute():
 def submitLoginRoute():
     username = request.form['username']
     password = request.form['password']
-    print(password)
+    
     isVerified = verifyCredentials(dbConn, username, password)
     return f"Welcome, {isVerified}"
 
