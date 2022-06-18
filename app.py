@@ -23,9 +23,7 @@ def start():
     global_vars.__init__()
     global dbConn, version
     from global_vars import dbConn, version
-    with dbConn.cursor() as cur:
-        cur.execute("DELETE FROM users")
-        dbConn.commit()
+    
         
 start()
 # auth has to be here, so the __init__ function can be called so the dbConn var is importable across all modules
