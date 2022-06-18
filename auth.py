@@ -186,9 +186,9 @@ def signupRoute():
     password = request.form['password']
     username = request.form['username']
     # this removes any extra spaces
-    strip(username)
-    strip(password)
-    
+    username.strip()
+    password.strip()
+
     if email == "" or password == "" or username == "":
          return redirect(f"/signup",code=302)
     user = signUpUser(dbConn, username, email, password)
@@ -207,8 +207,9 @@ def loginRoute():
         username = request.form['username']
         password = request.form['password']
         # this removes any extra spaces
-        strip(username)
-        strip(password)
+        username.strip()
+        password.strip()
+        
         isVerified = verifyCredentials(dbConn, username, password)
         return f"Welcome, {isVerified}"
 
