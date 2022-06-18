@@ -2,6 +2,8 @@ import psycopg2
 import os
 import requests
 
+from cache_funcs import createUserCache
+
 def getDBCredsandConnect(type="prod"):
     """ 
     Get DB creds and connect to the databse
@@ -29,9 +31,12 @@ def getDBCredsandConnect(type="prod"):
 
 def __init__():
     global version
-    version="prod"
+    version="beta"
 
     global dbConn
     dbConn = getDBCredsandConnect(type=version)
     print("Created Global Var. for DB connection in global_vars.py")
+
+    global userCache
+    userCache = createUserCache(dbConn)
     return dbConn

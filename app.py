@@ -7,7 +7,7 @@ import psycopg2
 import os
 import json
 
-from database_func import  createUserCache
+from cache_funcs import  createUserCache
 import global_vars
 
 
@@ -21,9 +21,9 @@ def start():
     # we have an external file, global_vars, with function __init__ to initialize the DB as a global var
     # to be accesible by all modules in the app via import
     global_vars.__init__()
-    global dbConn, version
-    from global_vars import dbConn, version
-    
+    global dbConn, version, userCache
+    from global_vars import dbConn, version, userCache
+    print(userCache)
         
 start()
 # auth has to be here, so the __init__ function can be called so the dbConn var is importable across all modules

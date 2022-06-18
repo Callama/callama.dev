@@ -11,7 +11,8 @@ from psycopg2.extensions import quote_ident
 import passlib
 from passlib.hash import bcrypt 
 
-from global_vars import dbConn
+from global_vars import dbConn, userCache
+from cache_funcs import addUserToCache
 
 
 
@@ -94,18 +95,27 @@ def signUpUser(dbConn, username, email, password):
     # get email + user + password -> hash password -> store in database 
     hashedPassword = hashPassword(password)
     q = f"INSERT INTO users(email, password_hash, username) VALUES(%s, %s, %s) RETURNING username, email, password_hash;"
+
     with dbConn.cursor() as cur:
         try:
             cur.execute(q,(email, hashedPassword, username,))
-            username = cur.fetchone()
+            userInfo = cur.fetchone()
             dbConn.commit()
-            if username == None or username == ():
+
+            if userInfo == None or userInfo == ():
                 dbConn.rollback()
                 return False
+
+            # once this happens, we're safe to add it to the cache
+            addedToCache = addUserToCache(userCache, email, hashedPassword, username)
+            print(addedToCache)
+            print(userCache)
+            
         except IntegrityError:
             dbConn.rollback()
             return "unique"
-    return username
+        sessionKey = generateSessionKey(username, hashedPassword)
+    return sessionKey
 
 
 ### Sessions ###
@@ -126,31 +136,40 @@ def generateSessionKey(username, hashedPassword):
 
 ### Misc Auth ###
 
-def matchUserInDatabase(dbConn, username):
+def matchUserInDatabase(dbConn, username,usingCache=True):
     """ 
     Find a user in the database with their username 
     To be used only for auth services
 
     :param dbConn: psycopg2 db object, database connection
     :param username: str, user's username 
-   
+    :param usingCache: bool, wheather to use the userCache or not
+        default: True
     
     return None, NoneType, no user/record found
 
     :return: tuple, found record
     """
-    print(username, "USERANEM matchUSERDB")
-    cursor = dbConn.cursor()
-    cursor.execute(f"SELECT * FROM users WHERE username = %s", (username,))
-    record = cursor.fetchone()
-    cursor.close()
-    print(record, "RECORD FROM matchUSERInDB")
+    if usingCache == False:
+        cursor = dbConn.cursor()
+        cursor.execute(f"SELECT * FROM users WHERE username = %s", (username,))
+        record = cursor.fetchone()
+        cursor.close()
+
+        # this only applies to this method, so we have it here
+        if record == None or record == ():
+            return None
+
+    if usingCache == True:
+        try:
+            record = userCache[username]
+        except KeyError:
+            return None
     
     if record != None or record != ():
         return record
-    # if no user is found, it returns () or occasionally NoneType
-    if record == None or record == ():
-        return None
+    
+    
 
 ### ROUTES ###
 
