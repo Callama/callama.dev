@@ -26,7 +26,7 @@ def start():
     print(userCache)
         
 start()
-# auth has to be here, so the __init__ function can be called so the dbConn var is importable across all modules
+# auth has to be here, so the __init__ function can be called so the dbConn var is importable from this file across all modules
 import auth
 
 # we can add routes from other files using this method, the view_func being the function from the other file
@@ -37,7 +37,7 @@ app.add_url_rule('/signup',view_func=auth.signupRoute,methods=["GET", "POST"])
 
 @app.route("/")
 def mainRoute():
-    resp = make_response(render_template("helloworld.html"), 200)
+    resp = make_response(render_template("new_main.html"), 200)
     return resp
 
 @app.route("/new")

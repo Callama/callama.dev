@@ -31,7 +31,7 @@ def getDBCredsandConnect(type="prod"):
 
 def __init__():
     global version
-    version="prod"
+    version="beta"
 
     global dbConn
     dbConn = getDBCredsandConnect(type=version)

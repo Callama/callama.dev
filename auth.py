@@ -134,6 +134,8 @@ def generateSessionKey(username, hashedPassword):
     sessionKey = hasher.hash(username+hashedPassword)
     return sessionKey
 
+
+
 ### Misc Auth ###
 
 def matchUserInDatabase(dbConn, username,usingCache=True):
@@ -178,7 +180,7 @@ def matchUserInDatabase(dbConn, username,usingCache=True):
 def signupRoute():
     # regular request
     if request.method == "GET":
-        resp = make_response(render_template("signup.html"), 200)
+        resp = make_response(render_template("signup.html",messageValue="Sign Up"),200)
         return resp
     # when submitting a request
     if request.method == "POST":
@@ -190,10 +192,12 @@ def signupRoute():
     password.strip()
 
     if email == "" or password == "" or username == "":
-         return redirect(f"/signup",code=302)
+        return make_response(render_template("signup.html", messageValue="All fields are required."), 400)
     user = signUpUser(dbConn, username, email, password)
-    return "Account Created Succesfully!"
-
+    if user == False:
+        return make_response(render_template(f"signup.html",messageValue="An error has occured."), 400)
+    if user == "unique":
+        return make_response(render_template(f"signup.html",messageValue="That username has already been taken."), 400)
 ## LogIns ##
 
 
@@ -211,5 +215,5 @@ def loginRoute():
         password.strip()
         
         isVerified = verifyCredentials(dbConn, username, password)
-        return f"Welcome, {isVerified}"
+        return make_response(render_template("home.html",username=username),200)
 
