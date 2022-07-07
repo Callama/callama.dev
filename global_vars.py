@@ -2,7 +2,7 @@ import psycopg2
 import os
 import requests
 
-from cache_funcs import createUserCache
+from cache_funcs import createUserCache, createWebSessionsCache
 
 def getDBCredsandConnect(type="prod"):
     """ 
@@ -31,7 +31,7 @@ def getDBCredsandConnect(type="prod"):
 
 def __init__():
     global version
-    version="prod"
+    version="beta"
 
     global dbConn
     dbConn = getDBCredsandConnect(type=version)
@@ -39,4 +39,8 @@ def __init__():
 
     global userCache
     userCache = createUserCache(dbConn)
+
+    global webSessionsCache
+    webSessionsCache = createWebSessionsCache(dbConn)
+    
     return dbConn

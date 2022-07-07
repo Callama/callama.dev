@@ -1,19 +1,33 @@
 <html>
+    <style>
+        body {
+            background-color: beige;
+        }
+        #main {
+            text-align: center;
+            color: rgb(46, 39, 39);
+        }
+        </style>
     <body>
-        <form action="{{ url_for("loginRoute")}}" method="post">
-            <div style="text-align:center;">
-                <label for="email"><b>Username</b> </label>
-                <input type="text" name="username" id="email" placeholder="username">
-            </div>
-            <br>
-            <div style="text-align:center;">
-                <label for="password"><b>Password</b></label>
-                <input type="text" name="password" id="password" placeholder="password">
-            </div>
-            <br>
-            <div style="text-align:center;"">
-                <button type="submit" name="submitLoginButton">Login</button>
-            </div>
-        </form>
+        <div id="main">
+            <form action="{{ url_for("loginRoute")}}" method="post">
+                <div>
+                    <h1>{{ messageValue }}</h1>
+                </div>
+                <div>
+                    <label for="email"><b>Username</b> </label>
+                    <input type="text" name="username" id="email" placeholder="username">
+                </div>
+                <br>
+                <div>
+                    <label for="password"><b>Password</b></label>
+                    <input type="text" name="password" id="password" placeholder="password">
+                </div>
+                <br>
+                <div>
+                    <button type="submit" name="submitLoginButton">Login</button>
+                </div>
+            </form>
+        </div>
     </body>
 </html>

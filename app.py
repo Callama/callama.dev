@@ -7,7 +7,7 @@ import psycopg2
 import os
 import json
 
-from cache_funcs import  createUserCache
+from cache_funcs import  createUserCache, createWebSessionsCache
 import global_vars
 
 
@@ -22,7 +22,7 @@ def start():
     # to be accesible by all modules in the app via import
     global_vars.__init__()
     global dbConn, version, userCache
-    from global_vars import dbConn, version, userCache
+    from global_vars import dbConn, version, userCache, webSessionsCache
     print(userCache)
         
 start()
@@ -30,9 +30,9 @@ start()
 import auth
 
 # we can add routes from other files using this method, the view_func being the function from the other file
-app.add_url_rule('/login', view_func=auth.loginRoute,methods=["GET", "POST"])
-app.add_url_rule('/signup',view_func=auth.signupRoute,methods=["GET", "POST"])
-    
+app.add_url_rule('/login', view_func=auth.loginRoute,methods=["GET","POST"])
+app.add_url_rule('/signup',view_func=auth.signupRoute,methods=["GET","POST"])
+app.add_url_rule('/logout',view_func=auth.logoutRoute,methods=["GET","POST"])
 
 
 @app.route("/")
@@ -49,6 +49,18 @@ def newRoute():
 def betaMainRoute():
     resp = make_response(render_template("mainpage.html"),200)
     return resp
+
+@app.route("/home",methods=["GET"])
+def homeRoute():
+    userInfo = auth.verifySessionKeyInCookies(request)
+    if userInfo == None:
+        resp = make_response(redirect("/login"), 301)
+    else:
+        resp = make_response(render_template("home.html",username=userInfo[2]),200)
+    
+    return resp
+
+
 
 
 
