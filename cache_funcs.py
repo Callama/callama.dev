@@ -1,7 +1,8 @@
 import psycopg2
+
 import os
 import requests
-
+from datetime import datetime
 
 
 
@@ -107,7 +108,59 @@ def removeWebsessionFromCache(session_key, webSessionsCache):
         return False
 
 
+#### Link Shortner ####
 
+def populateShortendLinkCache(dbConn):
+    """ 
+    Populate the shortend link cache with the links in format
+    {link_id : (link_id, link_address, owner_username, date_created, times_used, enabled)}
+
+    :param dbConn: pysopg2 database connection object
+
+    :return: dict, {link_id : (link_id, link_address, owner_username, date_created, times_used, enabled),...}
+    """ 
+    q = "SELECT * FROM short_links"
+    shortLinksCache = {}
+    with dbConn.cursor() as cur:
+        cur.execute(q)
+        records = cur.fetchall()
+        for link in records:
+            # make the key of each record the session key
+            key = link[0]
+            # the username the value of the session key
+            shortLinksCache[key] = list(link)
+    return shortLinksCache
+
+
+def addShortendLinkToCache(shortLinksCache, link_id,link_address,owner_username):
+    """ 
+    Add a newly made shortend link with the defaults
     
+    :param shortLinksCache: str, the cache to add the link to. assumed to be global
+    :param link_id: str, the id of the link used in the routing link /l<link_id>
+    :param link_address: str, the link to redirect to
+    :param owner_username: str, the username of the short link's creator
+
+    :return: bool
+        True, succesfully added to cache
+        False, error occured, not added to cache
+    """ 
+    try:
+        shortLinksCache[link_id] = [link_id, link_address, owner_username, datetime.now().timestamp(), 0, True]
+        return True
+    except Exception as e:
+        print("Error adding shortned link to cache:",e)
+        return False
+
+def addOneShortLinkUsageToCache(shortLinksCache, link_id):
+    """ 
+    Increments the times_used value in the cache by one
+    :param shortLinksCache: str, the cache to add the link to. assumed to be global
+    :param link_id: str, the id of the link used in the routing link /l<link_id>
+    """ 
+    shortLinksCache[link_id][4] += 1
+    print(shortLinksCache[link_id])
+    
+
 
 

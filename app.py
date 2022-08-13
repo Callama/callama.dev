@@ -6,6 +6,7 @@ import psycopg2
 
 import os
 import json
+import datetime
 
 from cache_funcs import  createUserCache, createWebSessionsCache
 import global_vars
@@ -28,11 +29,15 @@ def start():
 start()
 # auth has to be here, so the __init__ function can be called so the dbConn var is importable from this file across all modules
 import auth
-
+import link_shortner
+import politics
 # we can add routes from other files using this method, the view_func being the function from the other file
-app.add_url_rule('/login', view_func=auth.loginRoute,methods=["GET","POST"])
+app.add_url_rule('/login', view_func=auth.loginRoute,methods=["GET","POST"],)
 app.add_url_rule('/signup',view_func=auth.signupRoute,methods=["GET","POST"])
 app.add_url_rule('/logout',view_func=auth.logoutRoute,methods=["GET","POST"])
+app.add_url_rule('/l<link_id>',view_func=link_shortner.defaultShortendLinkRoute,methods=["GET"])
+app.add_url_rule('/l',view_func=link_shortner.shortendLinkHomeRoute,methods=["GET"])
+app.add_url_rule('/user/politics',view_func=politics.politicsDefaultRoute,methods=["GET"])
 
 
 @app.route("/")
@@ -59,6 +64,8 @@ def homeRoute():
         resp = make_response(render_template("home.html",username=userInfo[2]),200)
     
     return resp
+
+
 
 
 

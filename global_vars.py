@@ -2,7 +2,7 @@ import psycopg2
 import os
 import requests
 
-from cache_funcs import createUserCache, createWebSessionsCache
+from cache_funcs import createUserCache, createWebSessionsCache, populateShortendLinkCache
 
 def getDBCredsandConnect(type="prod"):
     """ 
@@ -42,5 +42,8 @@ def __init__():
 
     global webSessionsCache
     webSessionsCache = createWebSessionsCache(dbConn)
+    
+    global shortendLinksCache
+    shortendLinksCache = populateShortendLinkCache(dbConn)
     
     return dbConn

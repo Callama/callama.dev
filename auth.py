@@ -299,13 +299,15 @@ def loginRoute():
     if request.method == "GET":
         # we check if they're already logged in
         userInfo = verifySessionKeyInCookies(request)
-        print(userInfo)
+        
         if userInfo == None:
             resp = make_response(render_template("login.html",messageValue="Login Below"), 200)
         else:
             resp = make_response(redirect("/home"),301)
+            print(f"User with name {userInfo[2]} logged in")
        
         return resp
+
     # when the submit button is pressed
     if request.method == "POST":
         username = request.form['username']
@@ -326,7 +328,7 @@ def loginRoute():
         response = make_response(redirect("/home"), 301)
         response.set_cookie("session", sessionKey)
         isSessionCreated = createWebSession(sessionKey, username)
-
+        print(f"User with name {username} logged in\nNew web-session also created.")
         return response
 
 def logoutRoute():

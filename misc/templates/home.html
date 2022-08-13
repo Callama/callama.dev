@@ -1,66 +1,135 @@
-<html>
+<!-- <html>
     <style>
-         body {
-            background-color: beige;
-        }
         
-        #footer {
-            position: fixed;
-            padding: 10px 10px 0px px;
-            bottom: 0;
-            width: 100%;
-            /* Height of the footer*/ 
-            height: 60px;
-            
-        }
+        body {
+           background-color: beige;
+       }
+       
+       #footer {
+           position: fixed;
+           padding: 10px 10px 0px px;
+           bottom: 0;
+           width: 100%;
+           /* Height of the footer*/ 
+           height: 60px;
+           
+       }
 
-        a:link {
-            color: darkslateblue;
-            text-decoration: none;
-            
-        }
-        a:hover {
-            text-decoration: none;
-            font-size: 125%;
-        }   
+       a:link {
+           color: darkslateblue;
+           text-decoration: none;
+           
+       }
+       a:hover {
+           text-decoration: none;
+           font-size: 125%;
+       }   
 
-        /* CSS */
-        .button-74 {
-        background-color: #fbeee0;
-        border: 2px solid #422800;
-        border-radius: 30px;
-        box-shadow: #422800 4px 4px 0 0;
-        color: #422800;
-        cursor: pointer;
-        display: inline-block;
-        font-weight: 600;
-        font-size: 18px;
-        padding: 0 18px;
-        line-height: 50px;
-        text-align: center;
-        text-decoration: none;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        }
+       /* CSS */
+       .button-74 {
+       background-color: #fbeee0;
+       border: 2px solid #422800;
+       border-radius: 30px;
+       box-shadow: #422800 4px 4px 0 0;
+       color: #422800;
+       cursor: pointer;
+       display: inline-block;
+       font-weight: 600;
+       font-size: 18px;
+       padding: 0 18px;
+       line-height: 50px;
+       text-align: center;
+       text-decoration: none;
+       user-select: none;
+       -webkit-user-select: none;
+       touch-action: manipulation;
+       }
 
-        .button-74:hover {
-        background-color: #fff;
-        }
+       .button-74:hover {
+       background-color: #fff;
+       }
 
-        .button-74:active {
-        box-shadow: #422800 2px 2px 0 0;
-        transform: translate(2px, 2px);
-        }
+       .button-74:active {
+       box-shadow: #422800 2px 2px 0 0;
+       transform: translate(2px, 2px);
+       }
 
-        @media (min-width: 768px) {
-        .button-74 {
-            min-width: 120px;
-            padding: 0 25px;
-        }
-        }
-      
-    </style>
+       @media (min-width: 768px) {
+       .button-74 {
+           min-width: 120px;
+           padding: 0 25px;
+       }
+       }
+     
+   </style>
+
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <style>
+        
+            body {
+               background-color: beige;
+           }
+           
+           #footer {
+               position: fixed;
+               padding: 10px 10px 0px px;
+               bottom: 0;
+               width: 100%;
+               /* Height of the footer*/ 
+               height: 60px;
+               
+           }
+   
+           a:link {
+               color: darkslateblue;
+               text-decoration: none;
+               
+           }
+           a:hover {
+               text-decoration: none;
+               font-size: 125%;
+           }   
+   
+           /* CSS */
+           .button-74 {
+           background-color: #fbeee0;
+           border: 2px solid #422800;
+           border-radius: 30px;
+           box-shadow: #422800 4px 4px 0 0;
+           color: #422800;
+           cursor: pointer;
+           display: inline-block;
+           font-weight: 600;
+           font-size: 18px;
+           padding: 0 18px;
+           line-height: 50px;
+           text-align: center;
+           text-decoration: none;
+           user-select: none;
+           -webkit-user-select: none;
+           touch-action: manipulation;
+           }
+   
+           .button-74:hover {
+           background-color: #fff;
+           }
+   
+           .button-74:active {
+           box-shadow: #422800 2px 2px 0 0;
+           transform: translate(2px, 2px);
+           }
+   
+           @media (min-width: 768px) {
+           .button-74 {
+               min-width: 120px;
+               padding: 0 25px;
+           }
+           }
+         
+       </style>
+    </head>
+   
 
     <body>
         <h1>Welcome, <i>{{ username }}</i>.</h1>
@@ -78,6 +147,66 @@
 </html>
 
 
+-->
+<style>
+    a:link {
+               color: darkslateblue;
+               text-decoration: none;
+               
+           }
+    a:hover {
+            text-decoration: none;
+            font-size: 125%;
+           }   
+</style>
 
+<header>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <!-- Navbar -->
+    <nav class="nav border border-dark border-bottom">
+        <a class="nav-item nav-link active" href="/home">Home</a>
+        <a class="nav-item nav-link active" href="/l">Link Shortner</a>
+        <a class="nav-item nav-link active" href="/user/politics">Your Politics</a>
+        
+    </nav>
+    <!-- Navbar -->
 
+</header>
 
+<body>
+    <div id="alertID" class="alert alert-warning fade show" role="warning">
+        This is a work in progress! Things will break!
+    </div>
+
+    <!-- Autodismiss alert -->
+    <script type="text/javascript">
+        var enabled = false;
+        if (enabled == true) {
+        // Enable dismissal of an alert via JavaScript:
+        var alertList = document.querySelectorAll('.alert')
+        alertList.forEach(function(alert) {
+        new bootstrap.Alert(alert)
+        })
+
+        // Get the alert element
+        // var alertQs = document.querySelector('.alert')  // This line would target all alerts on the page
+        var alertQs = document.querySelector('#alertID') // This line only targets the element with ID #alertID
+        // Create a Bootstrap alert instance
+        var bsAlert = bootstrap.Alert.getInstance(alertQs)
+        // Dismiss alert after specified amount of time in milliseconds
+        window.setTimeout(() => { bsAlert.close(); }, 2000);
+        }
+    </script>
+
+        <!-- Jumbotron -->
+        <div class="p-5 text-center bg-beige">
+            <h1 class="mb-3">Welcome, <i>{{ username }}<i></h1>
+            <!-- <h4 class="mb-3">Subheading</h4>
+            <a class="btn btn-primary" href="" role="button">Call to action</a> -->
+        </div>
+        <!-- Jumbotron -->
+            
+</body> 
